@@ -4,18 +4,15 @@ import Card from "./Card.jsx";
 function App() {
   const [cards, setCards] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null); // 1. Estado para guardar o erro
-  
+  const [error, setError] = useState(null);
   const [filter, setFilter] = useState("Todas");
   const [search, setSearch] = useState("");
   const [randomCard, setRandomCard] = useState(null);
   const [sorted, setSorted] = useState(false);
 
   useEffect(() => {
-    // Podes testar mudar o URL para "http://localhost:3000/api/cartass" para ver o 404
     fetch("http://localhost:3000/api/cartas")
       .then((res) => {
-        // 2. Se o servidor responder com erro (ex: 404 ou 500), lançar um erro
         if (!res.ok) {
           throw new Error(`HTTP ${res.status}`);
         }
@@ -29,12 +26,11 @@ function App() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Se estiver a carregar
   if (loading) {
     return <main><p>A carregar...</p></main>;
   }
 
-  // 4. Se houver um erro, mostrar a mensagem de erro
+
   if (error) {
     return <main><p>Erro: {error}</p></main>;
   }
